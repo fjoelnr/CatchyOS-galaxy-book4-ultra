@@ -1,0 +1,41 @@
+name: Hygiene
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Verify required structure
+        run: |
+          test -f README.md
+          test -f LICENSE
+          test -f AGENTS.md
+          test -f .github/CODEOWNERS
+          test -f .agents/workflows/README.md
+          test -f .agents/skills/README.md
+          test -f .agents/guardrails/README.md
+          test -f docs/overview.md
+          test -f docs/operations.md
+          test -f audio/README.md
+          test -f camera/README.md
+          test -f fingerprint/README.md
+          test -f kernel/README.md
+          test -f nvidia/README.md
+
+      - name: Bash syntax check
+        run: bash -n fingerprint/build-libfprint-sdcp.sh
+
+      - name: Shellcheck
+        run: shellcheck fingerprint/build-libfprint-sdcp.sh
