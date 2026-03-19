@@ -1,0 +1,16 @@
+# Kernel build artifacts
+*.ko
+*.o
+*.mod
+*.mod.c
+modules.order
+Module.symvers
+.tmp_versions/
+
+# Meson build directories
+build/
+
+# Editor
+.vscode/
+*.swp
+*~

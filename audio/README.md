@@ -12,6 +12,9 @@ generic SOF machine driver to load with a topology that has no SSP2 pipeline —
 in silence. The fix is in [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616),
 currently only available in `linux-cachyos-rc`.
 
+The issue was tracked and resolved in
+[CachyOS/linux-cachyos #749](https://github.com/CachyOS/linux-cachyos/issues/749).
+
 ### Why the DKMS package breaks things
 
 If you previously installed the `max98390-hda` DKMS package as a workaround, it **must be
