@@ -81,33 +81,43 @@ The udev rule reapplies the threshold on the next boot.
 
 ### block_recording
 
-Enables a hardware-level camera/microphone privacy lock (the physical lens cover button).
+Hardware-level camera/microphone privacy lock — blocks the lens cover input device.
+Default: `0` (off). Values: `0` = allow, `1` = block.
 
 ```bash
-ls /sys/class/firmware-attributes/samsung-galaxybook/attributes/block_recording/
+# Read
+cat /sys/class/firmware-attributes/samsung-galaxybook/attributes/block_recording/current_value
+
+# Block camera/mic (privacy mode)
+echo 1 | sudo tee /sys/class/firmware-attributes/samsung-galaxybook/attributes/block_recording/current_value
+
+# Unblock
+echo 0 | sudo tee /sys/class/firmware-attributes/samsung-galaxybook/attributes/block_recording/current_value
 ```
 
 ### power_on_lid_open
 
 Controls whether the laptop powers on automatically when the lid is opened.
+**Recommended: `1` (enabled)** — makes the laptop behave like expected on every other platform.
 
 ```bash
-# Read current value
-cat /sys/class/firmware-attributes/samsung-galaxybook/attributes/power_on_lid_open/current_value
+# Enable (recommended)
+echo 1 | sudo tee /sys/class/firmware-attributes/samsung-galaxybook/attributes/power_on_lid_open/current_value
 
-# Disable auto power-on
+# Disable
 echo 0 | sudo tee /sys/class/firmware-attributes/samsung-galaxybook/attributes/power_on_lid_open/current_value
 ```
 
 ### usb_charging
 
 Controls USB port charging while the laptop is powered off.
+Default: `1` (enabled) — no change needed.
 
 ```bash
-# Read current value
+# Read
 cat /sys/class/firmware-attributes/samsung-galaxybook/attributes/usb_charging/current_value
 
-# Enable
+# Enable (default)
 echo 1 | sudo tee /sys/class/firmware-attributes/samsung-galaxybook/attributes/usb_charging/current_value
 ```
 
