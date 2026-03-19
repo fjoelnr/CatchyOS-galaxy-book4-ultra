@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = libfprint
+
+[Action]
+Description = Rebuilding libfprint-egismoc-sdcp after libfprint upgrade...
+When = PostTransaction
+Exec = /bin/sh -c 'echo "libfprint was upgraded. Run ~/CachyOS-galaxy-book4-ultra/fingerprint/build-libfprint-sdcp.sh to restore SDCP fingerprint support."'
+NeedsTargets
