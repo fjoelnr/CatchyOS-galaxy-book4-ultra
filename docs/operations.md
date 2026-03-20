@@ -5,9 +5,10 @@
 When the system or repo changes materially:
 
 1. retest the affected hardware component
-2. update the component-specific README
-3. update the root status table if support level changed
-4. note the tested kernel/package versions
+2. run the relevant checks from [Verification](verification.md)
+3. update the component-specific README
+4. update the root status table if support level changed
+5. note the tested kernel/package versions
 
 ## Release/Promotion Model
 
@@ -21,3 +22,4 @@ When the system or repo changes materially:
 - accuracy of support status
 - explicit upstream references
 - clear distinction between verified and speculative content
+- repeatability of verification steps

@@ -88,6 +88,10 @@ sudo pacman -S \
 - [NVIDIA](nvidia/README.md)
 - [Kernel / OV02C10 patch](kernel/README.md)
 
+## Verification
+
+Use [docs/verification.md](docs/verification.md) after kernel, driver, or package changes to quickly retest the machine baseline.
+
 ## Repository Layout
 
 ```text
