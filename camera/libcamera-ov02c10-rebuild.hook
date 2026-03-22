@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Type = Package
+Target = libcamera
+Target = libcamera-ipa
+
+[Action]
+Description = OV02C10 camera fix: libcamera system package was updated — rebuilding with OV02C10 sensor helper patch...
+When = PostTransaction
+Exec = /bin/bash -c 'echo ""; echo "⚠ libcamera was updated. Re-run the OV02C10 fix to restore camera quality:"; echo "  bash ~/samsung-galaxy-book4-linux-fixes/webcam-fix-libcamera/build-libcamera-arch.sh"; echo ""'
