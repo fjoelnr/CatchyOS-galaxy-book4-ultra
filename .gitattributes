@@ -1,0 +1,2 @@
+*.sh text eol=lf
+*.hook text eol=lf

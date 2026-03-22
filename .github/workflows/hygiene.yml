@@ -27,6 +27,7 @@ jobs:
           test -f .agents/skills/README.md
           test -f .agents/guardrails/README.md
           test -f docs/overview.md
+          test -f docs/STATUS.md
           test -f docs/operations.md
           test -f audio/README.md
           test -f camera/README.md

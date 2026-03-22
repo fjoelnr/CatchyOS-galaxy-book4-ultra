@@ -60,19 +60,35 @@ Interpretation:
 
 ## Camera
 
-Expected state: sensor detection works, streaming still does not.
+Expected state: sensor detection and basic streaming work with the patched `libcamera` `simple` pipeline.
 
 ```bash
 dmesg | grep -i ov02c10
 media-ctl -p -d /dev/media0
 v4l2-ctl --list-devices
+cam --list
 ```
 
 Interpretation:
 
-- good: the sensor probes and the IPU6 media topology is present
-- expected current limitation: streaming still fails because the HAL/routing gap is unresolved
+- good: the sensor probes, the IPU6 media topology is present, and `cam --list` shows the internal camera
+- better: a short `cam -c 1 --capture=1 --file=/tmp/gb4u-test.ppm` capture succeeds
 - bad: the sensor no longer probes at all after a kernel change
+
+## Platform Features
+
+Expected state: the `samsung-galaxybook` driver exposes backlight, profiles, and firmware attributes.
+
+```bash
+ls /sys/class/leds/samsung-galaxybook::kbd_backlight
+cat /sys/firmware/acpi/platform_profile
+find /sys/class/firmware-attributes/samsung-galaxybook/attributes -maxdepth 2 -type f
+```
+
+Interpretation:
+
+- good: the LED path exists, `platform_profile` reads successfully, and firmware attributes are populated
+- bad: the platform driver no longer binds or the sysfs paths disappear after a kernel change
 
 ## Wi-Fi and Bluetooth
 
