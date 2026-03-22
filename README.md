@@ -45,7 +45,8 @@ Out of scope:
 | WiFi | Working | Out of the box |
 | Bluetooth | Working | Out of the box |
 | Fingerprint (sudo) | Working | Requires patched `libfprint` |
-| Camera | Partial | Sensor probes, streaming still blocked by ecosystem gap |
+| Camera | Working | Uses patched `libcamera` with `simple` pipeline |
+| Platform features | Working | `samsung-galaxybook` exposes backlight, profiles, battery threshold, firmware attributes |
 | Thunderbolt/USB4 | Untested | No verified notes yet |
 
 ## Quick Start
@@ -86,7 +87,9 @@ sudo pacman -S \
 - [Fingerprint](fingerprint/README.md)
 - [Camera](camera/README.md)
 - [NVIDIA](nvidia/README.md)
+- [Platform features](platform/README.md)
 - [Kernel / OV02C10 patch](kernel/README.md)
+- [Current repo status](docs/STATUS.md)
 
 ## Verification
 
@@ -100,14 +103,16 @@ camera/        Camera status and current blockers
 fingerprint/   SDCP/libfprint workaround
 kernel/        Kernel notes and OV02C10 patch
 nvidia/        NVIDIA installation guidance
+platform/      samsung-galaxybook platform-driver features
 docs/          Project overview and operations notes
 ```
 
 ## Known Gaps
 
-- Camera streaming is not solved yet; current state is detection and topology only.
+- Camera support still depends on patched `libcamera` plus DKMS/kernel-side fixes.
 - Thunderbolt/USB4 is not yet documented.
-- The repository still needs more polished setup validation and hardware test logs.
+- Suspend/resume and long-term stability notes are still thin.
+- The repository still needs more polished hardware test logs across kernel upgrades.
 
 ## Audience
 
@@ -122,6 +127,8 @@ This repository is useful for:
 - Tested on `linux-cachyos-rc` `7.0.0-rc3-2-cachyos-rc`
 - Speaker fix tracks [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616)
 - Fingerprint workaround uses an SDCP-capable `libfprint` fork
+- Camera works with `libcamera` `simple` pipeline and the OV02C10 helper patch
+- Platform controls work through the upstream `samsung-galaxybook` kernel driver
 
 ## Contributing
 
