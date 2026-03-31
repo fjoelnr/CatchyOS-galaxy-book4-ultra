@@ -2,7 +2,7 @@
 
 ## Recommended Kernel
 
-**`linux-cachyos-rc`** — tested on `7.0.0-rc5-2-cachyos-rc` (upstream rc6 released 2026-03-29; Linux 7.0 stable expected mid-April 2026)
+**`linux-cachyos-rc`** — tested on `7.0.0-rc6-1-cachyos-rc` (Linux 7.0 stable expected mid-April 2026)
 
 ```bash
 sudo pacman -S linux-cachyos-rc linux-cachyos-rc-headers

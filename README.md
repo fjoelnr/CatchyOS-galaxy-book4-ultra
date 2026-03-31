@@ -126,8 +126,8 @@ This repository is useful for:
 
 ## Current Baseline
 
-- Tested on `linux-cachyos-rc` `7.0.0-rc5-2-cachyos-rc` (rc6 released upstream 2026-03-29)
-- CachyOS stable kernel: `linux-cachyos` 6.19.7-1
+- Tested on `linux-cachyos-rc` `7.0.0-rc6-1-cachyos-rc`
+- CachyOS stable kernel: `linux-cachyos` 6.19.10-1
 - Speaker fix: patches from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616) carried as CachyOS downstream patch; **Linux 7.0 stable expected mid-April 2026**, after which `linux-cachyos` stable will include the fix
 - Camera: working via DKMS patches + libcamera `v0.7.0` built from source; `CameraSensorHelperOv02c10` still absent from upstream libcamera
 - Fingerprint workaround uses an SDCP-capable `libfprint` fork ([MR #146](https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/146) still unmerged upstream)

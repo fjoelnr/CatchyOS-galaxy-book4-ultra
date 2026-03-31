@@ -176,4 +176,4 @@ This is the same maintenance pattern as the fingerprint fix — see
 - Interface: MIPI CSI-2 → Intel IPU6 CSI2 port 4
 - Master clock: 26 MHz (Samsung, patched)
 - Pipeline: libcamera `simple` (not `ipu6`)
-- Kernel: `linux-cachyos-rc` ≥ 7.0.0-rc5 (tested on rc5; rc6 released upstream 2026-03-29)
+- Kernel: `linux-cachyos-rc` ≥ 7.0.0-rc6 (tested on rc6)
