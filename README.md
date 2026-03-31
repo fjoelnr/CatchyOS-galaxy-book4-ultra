@@ -45,7 +45,7 @@ Out of scope:
 | WiFi | Working | Out of the box |
 | Bluetooth | Working | Out of the box |
 | Fingerprint (sudo) | Working | Requires patched `libfprint` |
-| Camera | Working | Uses patched `libcamera` with `simple` pipeline |
+| Camera | Working | Requires DKMS patches + libcamera built from source |
 | Platform features | Working | `samsung-galaxybook` exposes backlight, profiles, battery threshold, firmware attributes |
 | Thunderbolt/USB4 | Untested | No verified notes yet |
 
@@ -109,7 +109,9 @@ docs/          Project overview and operations notes
 
 ## Known Gaps
 
-- Camera support still depends on patched `libcamera` plus DKMS/kernel-side fixes.
+- Camera works via `simple` pipeline; the IPU6 hardware pipeline (`ipu6`) remains unsupported due to V4L2 routing API incompatibilities.
+- `CameraSensorHelperOv02c10` is not yet in upstream libcamera — manual source build required after any `libcamera` system update.
+- Speaker fix not yet in mainline kernel; thesofproject/linux PR #5616 was closed (out of SOF scope) and patches need upstream submission via linux-sound@vger.kernel.org.
 - Thunderbolt/USB4 is not yet documented.
 - Suspend/resume and long-term stability notes are still thin.
 - The repository still needs more polished hardware test logs across kernel upgrades.
@@ -124,10 +126,11 @@ This repository is useful for:
 
 ## Current Baseline
 
-- Tested on `linux-cachyos-rc` `7.0.0-rc3-2-cachyos-rc`
-- Speaker fix tracks [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616)
-- Fingerprint workaround uses an SDCP-capable `libfprint` fork
-- Camera works with `libcamera` `simple` pipeline and the OV02C10 helper patch
+- Tested on `linux-cachyos-rc` `7.0.0-rc5-2-cachyos-rc` (rc6 released upstream 2026-03-29)
+- CachyOS stable kernel: `linux-cachyos` 6.19.7-1
+- Speaker fix: patches from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616) carried as CachyOS downstream patch; **Linux 7.0 stable expected mid-April 2026**, after which `linux-cachyos` stable will include the fix
+- Camera: working via DKMS patches + libcamera `v0.7.0` built from source; `CameraSensorHelperOv02c10` still absent from upstream libcamera
+- Fingerprint workaround uses an SDCP-capable `libfprint` fork ([MR #146](https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/146) still unmerged upstream)
 - Platform controls work through the upstream `samsung-galaxybook` kernel driver
 
 ## Contributing

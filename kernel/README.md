@@ -2,14 +2,14 @@
 
 ## Recommended Kernel
 
-**`linux-cachyos-rc`** — tested on `7.0.0-rc3-2-cachyos-rc`
+**`linux-cachyos-rc`** — tested on `7.0.0-rc5-2-cachyos-rc` (upstream rc6 released 2026-03-29; Linux 7.0 stable expected mid-April 2026)
 
 ```bash
 sudo pacman -S linux-cachyos-rc linux-cachyos-rc-headers
 ```
 
 The RC kernel is required for:
-- Internal speakers (MAX98390 amplifier ACPI match — [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616))
+- Internal speakers (MAX98390 ACPI match — patches from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616), carried as a CachyOS downstream patch; PR was closed as out-of-scope for SOF, mainline submission pending via linux-sound@vger.kernel.org)
 - OV02C10 camera sensor detection (with the DKMS patch below)
 
 ## OV02C10 Clock Patch
@@ -22,7 +22,7 @@ The upstream `ov02c10` driver only accepts a 19.2 MHz master clock. Samsung uses
 ```bash
 sudo cp -r kernel/ov02c10-fix /usr/src/ov02c10-fix-1.0
 sudo dkms add ov02c10-fix/1.0
-sudo dkms build ov02c10-fix/1.0 --kernelver 7.0.0-rc3-2-cachyos-rc
+sudo dkms build ov02c10-fix/1.0 --kernelver $(uname -r)
 sudo dkms install ov02c10-fix/1.0
 ```
 
@@ -52,11 +52,12 @@ lsmod | grep ov02c10
 ## Speaker Fix (Audio)
 
 The speaker fix is included in `linux-cachyos-rc`. See [Audio README](../audio/README.md).
-Once Linux 7.0 stable is released, the fix will land in `linux-cachyos` stable.
+Linux 7.0 stable is expected **mid-April 2026** — after that, `linux-cachyos` stable will
+include the fix and the RC kernel will no longer be required for audio.
 
 ## Patch Details
 
 | Patch | Status | Upstream |
 |---|---|---|
-| MAX98390 ACPI match (speakers) | ✅ In `linux-cachyos-rc` | [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616) |
+| MAX98390 ACPI match (speakers) | ✅ In `linux-cachyos-rc` | [PR #5616](https://github.com/thesofproject/linux/pull/5616) closed; pending linux-sound LKML submission |
 | OV02C10 26 MHz clock (camera) | 🔧 DKMS workaround | Not yet submitted |

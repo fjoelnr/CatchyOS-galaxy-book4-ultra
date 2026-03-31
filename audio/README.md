@@ -9,10 +9,16 @@ The Samsung Galaxy Book 4 Ultra uses a Realtek ALC298 HDA codec (SSID `144d:c1d8
 
 The `linux-cachyos` stable kernel (6.x) lacks the ACPI match for this device, causing a
 generic SOF machine driver to load with a topology that has no SSP2 pipeline — resulting
-in silence. The fix is in [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616),
-currently only available in `linux-cachyos-rc`.
+in silence.
 
-The issue was tracked and resolved in
+The fix originates from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616),
+which was **closed** (the maintainers determined these patches belong in the mainline kernel,
+not the SOF repo, and directed the author to submit to `linux-sound@vger.kernel.org`).
+CachyOS carries the patches as a downstream addition in `linux-cachyos-rc`.
+
+The fix is not yet in mainline Linux. **Linux 7.0 stable is expected mid-April 2026** —
+after which `linux-cachyos` stable will include it, and the RC kernel will no longer be
+required for audio. Track the CachyOS-side status at
 [CachyOS/linux-cachyos #749](https://github.com/CachyOS/linux-cachyos/issues/749).
 
 ### Why the DKMS package breaks things
@@ -55,8 +61,14 @@ speaker-test -t sine -f 440 -c 2
 
 ## Future
 
-The patch will land in `linux-cachyos` stable once Linux 7.0 is released. After that,
-users who installed `max98390-hda` DKMS must remove it before the native fix works.
+Linux 7.0 stable is expected **mid-April 2026**. Once CachyOS builds it into
+`linux-cachyos` stable, the RC kernel will no longer be necessary for speakers.
+Users who previously installed `max98390-hda` DKMS must still remove it before the
+native in-kernel fix can load.
+
+If you want to track when `linux-cachyos` stable gains the fix, watch the
+[CachyOS/linux-cachyos releases](https://github.com/CachyOS/linux-cachyos/releases)
+page — the fix will appear in the 7.0.x series.
 
 ## Technical Details
 
