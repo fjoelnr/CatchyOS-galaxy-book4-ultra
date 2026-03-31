@@ -90,6 +90,12 @@ sudo cp fingerprint/libfprint-sdcp-rebuild.hook /etc/pacman.d/hooks/
 
 See `fingerprint/libfprint-sdcp-rebuild.hook` for the hook definition.
 
+> **Important:** If pacman upgrades `libfprint` before you rebuild the SDCP fork,
+> the stock library will attempt SDCP communication incorrectly and may clear the
+> chip's enrolled templates. After rebuilding, run `fprintd-list "$USER"` — if the
+> chip reports no enrolled fingers, re-enroll with `fprintd-enroll -f right-index-finger`.
+> This is the expected recovery procedure after an unguarded `libfprint` upgrade.
+
 ## Technical Details
 
 - Sensor: LighTuning ETU905A80-E (Egis `0x05a1`)
