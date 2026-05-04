@@ -1,6 +1,6 @@
 # Audio — Internal Speakers
 
-## Status: ✅ Working
+## Status: ✅ Working (linux-cachyos stable ≥ 7.0)
 
 The Samsung Galaxy Book 4 Ultra uses a Realtek ALC298 HDA codec (SSID `144d:c1d8`) with
 4× Maxim MAX98390 speaker amplifiers connected via Intel SSP2.
@@ -16,9 +16,10 @@ which was **closed** (the maintainers determined these patches belong in the mai
 not the SOF repo, and directed the author to submit to `linux-sound@vger.kernel.org`).
 CachyOS carries the patches as a downstream addition in `linux-cachyos-rc`.
 
-The fix is not yet in mainline Linux. **Linux 7.0 stable is expected mid-April 2026** —
-after which `linux-cachyos` stable will include it, and the RC kernel will no longer be
-required for audio. Track the CachyOS-side status at
+The fix is **not in mainline Linux 7.0** (the patches were not submitted upstream in time).
+However, CachyOS includes them as a downstream addition in `linux-cachyos` stable since
+the 7.0.3-1.1 build (2026-05-02). The RC kernel is no longer required for audio.
+Track the CachyOS-side history at
 [CachyOS/linux-cachyos #749](https://github.com/CachyOS/linux-cachyos/issues/749).
 
 ### Why the DKMS package breaks things
@@ -31,11 +32,16 @@ The symptom: `lsmod | grep max98390` shows `(OE)` (Out-of-tree/External) next to
 
 ## Fix
 
-### Step 1 — Install the RC kernel
+### Step 1 — Update to linux-cachyos 7.0
+
+The speaker fix is included in `linux-cachyos` stable since `7.0.3-1.1` (2026-05-02).
+A plain system update is sufficient:
 
 ```bash
-sudo pacman -S linux-cachyos-rc linux-cachyos-rc-headers
+sudo pacman -Syu
 ```
+
+Reboot into `linux-cachyos` (7.0.x). The RC kernel is no longer required.
 
 ### Step 2 — Remove DKMS (critical)
 
@@ -61,14 +67,10 @@ speaker-test -t sine -f 440 -c 2
 
 ## Future
 
-Linux 7.0 stable is expected **mid-April 2026**. Once CachyOS builds it into
-`linux-cachyos` stable, the RC kernel will no longer be necessary for speakers.
-Users who previously installed `max98390-hda` DKMS must still remove it before the
-native in-kernel fix can load.
-
-If you want to track when `linux-cachyos` stable gains the fix, watch the
-[CachyOS/linux-cachyos releases](https://github.com/CachyOS/linux-cachyos/releases)
-page — the fix will appear in the 7.0.x series.
+The CachyOS downstream patches are the current fix. The original author of
+thesofproject/linux PR #5616 still needs to submit the patches to
+`linux-sound@vger.kernel.org` for inclusion in mainline Linux. Until then,
+vanilla kernel users remain without speaker support on this device.
 
 ## Technical Details
 

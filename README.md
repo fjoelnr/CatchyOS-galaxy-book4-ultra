@@ -39,7 +39,7 @@ Out of scope:
 
 | Feature | Status | Notes |
 | --- | --- | --- |
-| Internal speakers | Working | Requires `linux-cachyos-rc` kernel |
+| Internal speakers | Working | Requires `linux-cachyos` ≥ 7.0 (stable) or `linux-cachyos-rc` |
 | NVIDIA RTX 4070 | Working | Use open kernel modules, no DKMS |
 | Intel Arc iGPU | Working | Out of the box |
 | WiFi | Working | Out of the box |
@@ -51,10 +51,20 @@ Out of scope:
 
 ## Quick Start
 
-### 1. Install the RC kernel
+### 1. Update to kernel 7.0
+
+Linux 7.0 stable landed in `linux-cachyos` on 2026-05-02. The default CachyOS
+kernel now includes the speaker fix — no RC kernel required.
 
 ```bash
-sudo pacman -S linux-cachyos-rc linux-cachyos-rc-headers
+sudo pacman -Syu
+```
+
+If you previously ran the RC kernel specifically for audio, you can now switch back
+to `linux-cachyos` stable and remove the RC kernel if desired:
+
+```bash
+sudo pacman -Rns linux-cachyos-rc linux-cachyos-rc-headers linux-cachyos-rc-nvidia-open
 ```
 
 ### 2. Remove conflicting speaker DKMS if present
@@ -64,13 +74,10 @@ sudo dkms remove max98390-hda/1.0 --all
 sudo pacman -Rns max98390-hda
 ```
 
-Reboot into `linux-cachyos-rc`.
-
 ### 3. Install NVIDIA open kernel modules
 
 ```bash
 sudo pacman -S \
-  linux-cachyos-rc-nvidia-open \
   linux-cachyos-nvidia-open \
   linux-cachyos-lts-nvidia-open
 ```
@@ -111,7 +118,7 @@ docs/          Project overview and operations notes
 
 - Camera works via `simple` pipeline; the IPU6 hardware pipeline (`ipu6`) remains unsupported due to V4L2 routing API incompatibilities.
 - `CameraSensorHelperOv02c10` is not yet in upstream libcamera — manual source build required after any `libcamera` system update.
-- Speaker fix not yet in mainline kernel; thesofproject/linux PR #5616 was closed (out of SOF scope) and patches need upstream submission via linux-sound@vger.kernel.org.
+- Speaker fix not in mainline Linux 7.0 (thesofproject/linux PR #5616 was closed; patches need submission via linux-sound@vger.kernel.org) — CachyOS carries them as downstream patches.
 - Thunderbolt/USB4 is not yet documented.
 - Suspend/resume and long-term stability notes are still thin.
 - The repository still needs more polished hardware test logs across kernel upgrades.
@@ -126,12 +133,12 @@ This repository is useful for:
 
 ## Current Baseline
 
-- Tested on `linux-cachyos-rc` `7.0.0-rc6-1-cachyos-rc`
-- CachyOS stable kernel: `linux-cachyos` 6.19.10-1
-- Speaker fix: patches from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616) carried as CachyOS downstream patch; **Linux 7.0 stable expected mid-April 2026**, after which `linux-cachyos` stable will include the fix
-- Camera: working via DKMS patches + libcamera `v0.7.0` built from source; `CameraSensorHelperOv02c10` still absent from upstream libcamera
+- Tested on `linux-cachyos` `7.0.3-1.1` (stable, released 2026-05-02)
+- Speaker fix: in `linux-cachyos` stable since 7.0 — RC kernel no longer required
+- Camera: working via DKMS patches + libcamera `v0.7.0` built from source; `CameraSensorHelperOv02c10` still absent from upstream libcamera (v0.7.1 released 2026-04-29, still missing)
 - Fingerprint workaround uses an SDCP-capable `libfprint` fork ([MR #146](https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/146) still unmerged upstream)
 - Platform controls work through the upstream `samsung-galaxybook` kernel driver
+- MAX98390 audio patches still not in mainline Linux 7.0 — CachyOS carries them as downstream patches
 
 ## Contributing
 

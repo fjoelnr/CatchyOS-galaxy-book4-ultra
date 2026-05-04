@@ -2,14 +2,17 @@
 
 ## Recommended Kernel
 
-**`linux-cachyos-rc`** — tested on `7.0.0-rc6-1-cachyos-rc` (Linux 7.0 stable expected mid-April 2026)
+**`linux-cachyos`** (stable) — tested on `7.0.3-1.1` (2026-05-02)
 
 ```bash
-sudo pacman -S linux-cachyos-rc linux-cachyos-rc-headers
+sudo pacman -Syu
 ```
 
-The RC kernel is required for:
-- Internal speakers (MAX98390 ACPI match — patches from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616), carried as a CachyOS downstream patch; PR was closed as out-of-scope for SOF, mainline submission pending via linux-sound@vger.kernel.org)
+The 7.0 stable kernel includes the speaker fix as a CachyOS downstream patch.
+The RC kernel is no longer required for normal use.
+
+The stable kernel is sufficient for:
+- Internal speakers (MAX98390 ACPI match — patches from [thesofproject/linux PR #5616](https://github.com/thesofproject/linux/pull/5616), carried as a CachyOS downstream patch; not in mainline Linux 7.0)
 - OV02C10 camera sensor detection (with the DKMS patch below)
 
 ## OV02C10 Clock Patch
@@ -51,9 +54,8 @@ lsmod | grep ov02c10
 
 ## Speaker Fix (Audio)
 
-The speaker fix is included in `linux-cachyos-rc`. See [Audio README](../audio/README.md).
-Linux 7.0 stable is expected **mid-April 2026** — after that, `linux-cachyos` stable will
-include the fix and the RC kernel will no longer be required for audio.
+The speaker fix is included in `linux-cachyos` stable since `7.0.3-1.1` (2026-05-02).
+See [Audio README](../audio/README.md). The RC kernel is no longer required for audio.
 
 ## Patch Details
 

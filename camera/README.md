@@ -31,7 +31,7 @@ the simple pipeline).
 
 ### Step 2 — Build libcamera from source
 
-The Arch package is currently `libcamera 0.7.0-1`, which still has two issues that cause a dark image:
+The current upstream release is `libcamera 0.7.1` (2026-04-29), still missing `CameraSensorHelperOv02c10`. The Arch package will reflect this version. Both issues below affect all released versions so far:
 
 1. Missing `CameraSensorHelperOv02c10` — the IPA cannot map gain register values to
    linear gain, so AE/AGC applies wrong gain → black or very dark image.
@@ -115,8 +115,8 @@ module from Andycodeman's repo.
 
 ### Missing OV02C10 sensor helper (dark image)
 
-`CameraSensorHelperOv02c10` is not present in libcamera `v0.7.0` (the current upstream
-release and the current Arch package). Without it,
+`CameraSensorHelperOv02c10` is not present in libcamera through `v0.7.1` (current upstream
+as of 2026-04-29). Without it,
 the IPA cannot compute the correct analogue gain mapping for AE/AGC, producing a very
 dark or black image. Fixed by building libcamera from source with the helper class
 added to `src/ipa/libipa/camera_sensor_helper.cpp`:
