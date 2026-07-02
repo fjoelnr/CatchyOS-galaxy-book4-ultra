@@ -46,7 +46,7 @@ A build script is provided in the `webcam-fix-libcamera` subdirectory of the
 bash ~/samsung-galaxy-book4-linux-fixes/webcam-fix-libcamera/build-libcamera-arch.sh
 ```
 
-This builds libcamera `v0.7.0` from source with the sensor helper patch applied and
+This builds libcamera `v0.7.1` from source with the sensor helper patch applied and
 installs it to `/usr` (replacing the Arch system package). Build time: ~5 minutes.
 
 > **Important**: The build must target `prefix=/usr` (not `/usr/local`). Both installs
@@ -176,4 +176,4 @@ This is the same maintenance pattern as the fingerprint fix — see
 - Interface: MIPI CSI-2 → Intel IPU6 CSI2 port 4
 - Master clock: 26 MHz (Samsung, patched)
 - Pipeline: libcamera `simple` (not `ipu6`)
-- Kernel: `linux-cachyos-rc` ≥ 7.0.0-rc6 (tested on rc6)
+- Kernel: `linux-cachyos` ≥ 7.1.2 (tested on 7.1.2 / rc 7.2.rc1)

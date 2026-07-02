@@ -51,10 +51,10 @@ Out of scope:
 
 ## Quick Start
 
-### 1. Update to kernel 7.0
+### 1. Update to kernel 7.1
 
-Linux 7.0 stable landed in `linux-cachyos` on 2026-05-02. The default CachyOS
-kernel now includes the speaker fix — no RC kernel required.
+Linux 7.1 stable is in `linux-cachyos` as of July 2026. The default CachyOS
+kernel includes the speaker fix — no RC kernel required.
 
 ```bash
 sudo pacman -Syu
@@ -133,12 +133,13 @@ This repository is useful for:
 
 ## Current Baseline
 
-- Tested on `linux-cachyos` `7.0.3-1.1` (stable, released 2026-05-02)
+- Tested on `linux-cachyos` `7.1.2-3` / `linux-cachyos-rc` `7.2.rc1-2` (July 2026)
+- KDE Plasma `6.7.2`, NVIDIA driver `610`, Mesa `26.1.3`
 - Speaker fix: in `linux-cachyos` stable since 7.0 — RC kernel no longer required
-- Camera: working via DKMS patches + libcamera `v0.7.0` built from source; `CameraSensorHelperOv02c10` still absent from upstream libcamera (v0.7.1 released 2026-04-29, still missing)
+- Camera: working via DKMS patches + libcamera `v0.7.1` built from source; `CameraSensorHelperOv02c10` still absent from upstream libcamera
 - Fingerprint workaround uses an SDCP-capable `libfprint` fork ([MR #146](https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/146) still unmerged upstream)
 - Platform controls work through the upstream `samsung-galaxybook` kernel driver
-- MAX98390 audio patches still not in mainline Linux 7.0 — CachyOS carries them as downstream patches
+- MAX98390 audio patches still not in mainline Linux 7.1 — CachyOS carries them as downstream patches
 
 ## Contributing
 
